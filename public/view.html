@@ -27,14 +27,13 @@
         <div class="card-header">
           <h3><strong>Current Reservations</strong></h3>
         </div>
-        <!-- <div class="card-body">
-          <h2 class="name">Yoda</h2>
-          <div class="stats">
-            <h3><strong>Phone Number:</strong> <span class="phoneNumber">555-5555</span></h3>
-            <h3><strong>Email:</strong> <span class="email">yoda_badass@jedimaster.com</span></h3>
-            <h3><strong>Reservation ID:</strong> <span class="reservationID">55</span></h3>
-          </div>
-        </div> -->
+
+      </div>
+      <div class="card" id="waitingListSection">
+        <div class="card-header">
+          <h3><strong>Waitlist</strong></h3>
+        </div>
+
       </div>
     </div>
   </div>
@@ -53,13 +52,25 @@
           newReservationStats.append($(`<h3><strong>Email:</strong> <span class="email">${data[i].email}</span></h3>`));
           newReservationStats.append($(`<h3><strong>Reservation ID:</strong> <span class="reservationID">${data[i].reservationID}</span></h3>`));
           newReservation.append(`<hr class = 'my-4'>`);
-
-
-
           $("#reservationSection").append(newReservation);
         }
       });
-    })
+
+      $.get('/api/waitingList',(data) => {
+        for (let i = 0; i < data.length; i++) {
+        console.log(data[i]);
+        const newWaitList = $(`<div class='card-body'></div>`);
+          const newWaitListStats = $(`<div class='stats'></div>`);
+          newWaitList.append($("<h2 class='name'>").text(data[i].name));
+          newWaitList.append(newWaitListStats);
+          newWaitListStats.append($(`<h3><strong>Phone Number:</strong> <span class="phoneNumber">${data[i].phoneNumber}</span></h3>`));
+          newWaitListStats.append($(`<h3><strong>Email:</strong> <span class="email">${data[i].email}</span></h3>`));
+          newWaitListStats.append($(`<h3><strong>Reservation ID:</strong> <span class="reservationID">${data[i].reservationID}</span></h3>`));
+          newWaitListStats.append(`<hr class = 'my-4'>`);
+          $("#waitingListSection").append(newWaitList);
+        }
+      });
+    });
     </script>
 
 </body>

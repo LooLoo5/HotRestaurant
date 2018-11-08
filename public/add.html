@@ -85,13 +85,13 @@
           name: $("#name")
             .val()
             .trim(),
-          phoneNumber: $("#role")
+          phoneNumber: $("#phoneNumber")
             .val()
             .trim(),
-          email: $("#age")
+          email: $("#email")
             .val()
             .trim(),
-          reservationID: $("#force-points")
+          reservationID: $("#reservationID")
             .val()
             .trim()
         };
@@ -99,7 +99,6 @@
         // Question: What does this code do??
         $.post("/api/tables", newTable).then(data => {
           console.log(data);
-          alert("Adding Table...");
         });
       });
     </script>
