@@ -1,0 +1,22 @@
+<script type="text/javascript">
+  // Question: What does this code do?
+  $("#add-btn").on("click", (event) => {
+    event.preventDefault();
+
+    var newTable = {
+      name: $("#name").val().trim(),
+      phoneNumber: $("#role").val().trim(),
+      email: $("#age").val().trim(),
+      reservationID: $("#force-points").val().trim()
+    };
+
+    // Question: What does this code do??
+    $.post("/api/tables", newTable)
+      .then((data) => {
+        console.log(data);
+        alert("Adding Table...");
+      });
+
+  });
+
+</script>
