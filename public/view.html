@@ -20,19 +20,19 @@
       <h1>Hot Restaurant</h1>
       <h3>No need to wait! Create your reservation today!</h3>
       <hr>
-      <a href="/"><button class="btn btn-danger btn-lg"><span class="fa fa-eye"></span> View Wait List</button></a>
+      <a href="/"><button class="btn btn-danger btn-lg"><span class="fa fa-eye"></span>Home</button></a>
       <a href="/add"><button class="btn btn-danger btn-lg"><span class="fa fa-plus"></span> Create Reservation</button></a>
     </div>
-    <div class="card">
+    <div class="card" id="reservationSection">
         <div class="card-header">
           <h3><strong>Current Reservations</strong></h3>
         </div>
         <div class="card-body">
-          <h2 id="name">Yoda</h2>
-          <div id="stats">
-            <h3><strong>Phone Number:</strong> <span id="phoneNumber">555-5555</span></h3>
-            <h3><strong>Email:</strong> <span id="email">yoda_badass@jedimaster.com</span></h3>
-            <h3><strong>Reservation ID:</strong> <span id="reservationID">55</span></h3>
+          <h2 class="name">Yoda</h2>
+          <div class="stats">
+            <h3><strong>Phone Number:</strong> <span class="phoneNumber">555-5555</span></h3>
+            <h3><strong>Email:</strong> <span class="email">yoda_badass@jedimaster.com</span></h3>
+            <h3><strong>Reservation ID:</strong> <span class="reservationID">55</span></h3>
           </div>
         </div>
       </div>
@@ -41,20 +41,25 @@
 </div>
 
     <script type="text/javascript">
-
-      $.get("/api/reservation", function(data) {
-        for (var i = 0; i < data.length; i++) {
+    $(document).ready(()=> {
+      $.get("/api/tables",(data) => {
+        for (let i = 0; i < data.length; i++) {
           console.log(data[i]);
-          var listGroupItem = $("<li class='list-group-item'>");
+          const newReservation = $(`<div class='card-body'></div>`);
+          const newReservationStats = $(`<div class='stats'></div>`);
+          newReservation.append($("<h2 class='name'>").text(data[i].name));
+          newReservation.append(newReservationStats);
+          newReservationStats.append($(`<h3><strong>Phone Number:</strong> <span class="phoneNumber">${data[i].phoneNumber}</span></h3>`));
+          newReservationStats.append($(`<h3><strong>Email:</strong> <span class="email">${data[i].email}</span></h3>`));
+          newReservationStats.append($(`<h3><strong>Reservation ID:</strong> <span class="reservationID">${data[i].reservationID}</span></h3>`));
+          newReservation.append(`<hr class = 'my-4'>`);
 
-          listGroupItem.append($("<h2>").text("Name: " + data[i].name));
-          listGroupItem.append($("<h3>").text("Phone Number: " + data[i].phoneNumber));
-          listGroupItem.append($("<h3>").text("Email: " + data[i].email));
-          listGroupItem.append($("<h3>").text("Reservation ID: " + data[i].reservationID));
 
-          $("#reservation-section").append(listGroupItem);
+
+          $("#reservationSection").append(newReservation);
         }
       });
+    })
     </script>
 
 </body>
